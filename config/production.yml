@@ -1,0 +1,12 @@
+logger:
+  transports: [ 'grafana' ]
+
+rollbar:
+  env: 'production'
+
+grafana:
+  labels:
+    env: 'production'
+
+public:
+  env: 'production'

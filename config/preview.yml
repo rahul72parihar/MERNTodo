@@ -1,0 +1,9 @@
+logger:
+  transports: [ 'grafana' ]
+
+grafana:
+  labels:
+    env: 'preview'
+
+public:
+  env: 'preview'
