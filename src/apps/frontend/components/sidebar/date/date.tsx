@@ -35,7 +35,7 @@ export default function () {
       <>
         <>{linkButton('days/1', 'Today')}</>
         <>{linkButton('days/7', 'This Week')}</>
-        <>{linkButton('', '')}</>
+        <>{linkButton('', 'All Taks')}</>
       </>
     );
   };
@@ -51,7 +51,7 @@ export default function () {
       }}
       accordion
     >
-      <Panel title="Filter By DATES">{getFilterDaysBtn()}</Panel>
+      <Panel title="Tasks By Dates">{getFilterDaysBtn()}</Panel>
     </Accordion>
   );
 }
