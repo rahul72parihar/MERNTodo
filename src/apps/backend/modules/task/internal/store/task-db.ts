@@ -4,7 +4,7 @@ interface ITask extends Document {
   name: string;
   description?: string;
   completed: boolean;
-  dueDate?: Date;
+  dueDate: Date;
 }
 
 interface IProject extends Document {

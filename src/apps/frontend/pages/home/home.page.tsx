@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useStyletron } from 'baseui';
-import { NotFound } from '../index';
+import { NotFound, FilterDay } from '../index';
 const Home = () => {
   const [css] = useStyletron();
 
@@ -15,6 +15,8 @@ const Home = () => {
       })}
     >
       <Routes>
+        <Route path="/" element={<FilterDay />} />
+        <Route path="/days/:noOfDays" element={<FilterDay />} />
         <Route path="/" element={<></>} />
         <Route path="*" element={<NotFound />} />
       </Routes>

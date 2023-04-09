@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Accordion, Panel } from 'baseui/accordion';
 import { Button } from 'baseui/button';
 import { Input } from 'baseui/input';
 import { Textarea } from 'baseui/textarea';
+import { ProjectContext } from '../../../contexts/tasks.provider';
 
 export default function () {
   const [newProjectName, setNewProjectName] = React.useState('');
   const [description, setDescription] = React.useState('');
 
-  const handleClick = () => {
-    console.log('click', newProjectName, description);
+  const { addProject } = useContext(ProjectContext);
+
+  const handleClick = async () => {
+    const newProject: any = {
+      name: newProjectName,
+      description: description,
+    };
+
+    addProject(newProject);
+    setNewProjectName('');
+    setDescription('');
   };
 
   return (

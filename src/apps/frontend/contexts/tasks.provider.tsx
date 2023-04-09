@@ -43,7 +43,7 @@ const ProjectProvider = ({ children }: IProps): JSX.Element => {
 
   const addProject = async (project: IProject) => {
     // Save new project to backend API
-    const response = await fetch('/api/projects', {
+    const response = await fetch('/api/project', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
