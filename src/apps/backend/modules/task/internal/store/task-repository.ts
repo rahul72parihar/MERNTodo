@@ -2,10 +2,11 @@ import mongoose, { CallbackError, Connection } from 'mongoose';
 
 import ConfigService from '../../../config/config-service';
 
-import { TaskDB, taskDbSchema } from './task-db';
+// import { TaskDB, taskDbSchema } from './task-db';
+import { projectSchema, IProject } from './task-db';
 
-export default class TaskRepository {
-  public static taskDB: mongoose.Model<TaskDB>;
+export default class ProjectRepository {
+  public static Project: mongoose.Model<IProject>;
 
   static async createDBConnection(): Promise<Connection> {
     return new Promise((resolve, reject) => {
@@ -17,10 +18,10 @@ export default class TaskRepository {
           if (error) {
             reject(error);
           } else {
-            TaskRepository.taskDB = result.model(
-              'Task',
-              taskDbSchema,
-            ) as unknown as mongoose.Model<TaskDB>;
+            ProjectRepository.Project = result.model(
+              'Project',
+              projectSchema,
+            ) as unknown as mongoose.Model<IProject>;
             resolve(result);
           }
         },

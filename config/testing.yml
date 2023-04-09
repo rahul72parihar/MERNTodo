@@ -10,7 +10,7 @@ jwt:
   token: 'test_auth_token'
 
 communication:
-  services: [ 'twilio', 'sendgrid' ]
+  services: ['twilio', 'sendgrid']
 
 twilio:
   verify:
@@ -22,7 +22,7 @@ twilio:
 sendgridApiKey: 'SG.SENDGRID_API_KEY'
 
 mongoDb:
-  uri: 'mongodb://localhost:27017/boilerplate-mern-test'
+  uri: 'mongodb://127.0.0.1:27017/todo'
 
 server:
   port: '8080'

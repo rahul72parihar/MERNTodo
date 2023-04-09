@@ -1,7 +1,4 @@
-import Footer from './footer/footer.component';
 import Header from './header/header.component';
+import Sidebar from './sidebar/sidebar.component';
 
-export {
-  Header,
-  Footer,
-};
+export { Header, Sidebar };

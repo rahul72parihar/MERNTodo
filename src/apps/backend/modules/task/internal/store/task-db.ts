@@ -1,32 +1,31 @@
-import { Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-export interface TaskDB {
-  _id: Types.ObjectId;
-  account: Types.ObjectId;
-  active: boolean;
+interface ITask extends Document {
   name: string;
+  description?: string;
+  completed: boolean;
+  dueDate?: Date;
 }
 
-export const taskDbSchema: Schema = new Schema<TaskDB>(
-  {
-    active: { type: Boolean, required: true, default: true },
-    account: {
-      type: Schema.Types.ObjectId,
-      ref: 'Account',
-      index: true,
-      required: true,
-    },
-    name: {
-      type: String,
-      index: true,
-      required: true,
-    },
-  },
-  {
-    collection: 'tasks',
-    timestamps: {
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
-    },
-  },
-);
+interface IProject extends Document {
+  name: string;
+  description?: string;
+  tasks: ITask[];
+}
+
+const taskSchema: Schema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String },
+  completed: { type: Boolean, default: false },
+  dueDate: { type: Date },
+});
+
+const projectSchema: Schema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+  description: { type: String },
+  tasks: [taskSchema],
+});
+
+const Project = mongoose.model<IProject>('Project', projectSchema);
+
+export { Project, projectSchema, ITask, IProject };

@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 
-import { Header, Footer } from './components';
-import { DepsProvider } from './contexts';
-import { About, Login, NotFound } from './pages';
-import { AccessService } from './services';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Header, Sidebar } from './components';
+import { TaskProvider } from './contexts';
+import { Home } from './pages';
 import InspectLet from './vendor/inspectlet';
+import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
+import { BaseProvider, DarkTheme } from 'baseui';
+
+const engine = new Styletron();
 
 import './app.global.scss';
 
@@ -17,20 +21,18 @@ export default function App(): React.ReactElement {
   }, []);
 
   return (
-    <DepsProvider deps={{
-      accessService: new AccessService(),
-    }}>
-      <Router>
-        <div className='container'>
+    <TaskProvider>
+      <StyletronProvider value={engine}>
+        <BaseProvider theme={DarkTheme}>
           <Header />
-          <Routes>
-            <Route path='/about' element={<About />} />
-            <Route path='/' element={<Login />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </div>
-      </Router>
-    </DepsProvider>
+          <Router>
+            <div className="flex-div">
+              <Sidebar />
+              <Home />
+            </div>
+          </Router>
+        </BaseProvider>
+      </StyletronProvider>
+    </TaskProvider>
   );
 }
