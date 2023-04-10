@@ -1,3 +1,23 @@
 // add your global imports and css rules here
-
-@import "../../../node_modules/bootstrap/scss/bootstrap";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  min-height: 100vh;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  min-height: 100vh;
+  background-color: #2a1f57;
+}
+.flex-div {
+  display: flex !important;
+}
+a {
+  text-decoration: none;
+}
+@import '../../../node_modules/bootstrap/scss/bootstrap';

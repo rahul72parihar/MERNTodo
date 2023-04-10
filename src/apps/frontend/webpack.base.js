@@ -42,13 +42,13 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
-    extensions: [
-      '.tsx',
-      '.ts',
-      '.js',
-    ],
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };

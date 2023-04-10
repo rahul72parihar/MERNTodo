@@ -1,6 +1,3 @@
-import { DepsProvider, useDeps } from './deps.provider';
+import TaskProvider from './tasks.provider';
 
-export {
-  DepsProvider,
-  useDeps,
-};
+export { TaskProvider };

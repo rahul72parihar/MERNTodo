@@ -5,9 +5,6 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import expressWinston from 'express-winston';
 
-import AccessTokenServiceManager from './modules/access-token/access-token-manager';
-import AccountServiceManager from './modules/account/account-service-manager';
-import CommunicationServiceManager from './modules/communication/communication-service-manager';
 import ConfigManager from './modules/config/config-manager';
 import ConfigService from './modules/config/config-service';
 import Logger from './modules/logger/logger';
@@ -25,10 +22,9 @@ export default class App {
 
     await ConfigManager.mountConfig();
     await LoggerManager.mountLogger();
-    await CommunicationServiceManager.mountService();
 
     const restAPIServices = await this.createRESTApiServer();
-    this.app.use('/api', restAPIServices);
+    this.app.use('/', restAPIServices);
 
     const app = await this.createExperienceService();
     this.app.use('/', app);
@@ -50,19 +46,15 @@ export default class App {
     // from webpack dev server
     if (isDevEnv) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      app.use(cors({
-        origin: 'http://localhost:3000',
-      }));
+      app.use(
+        cors({
+          origin: 'http://localhost:3000',
+        }),
+      );
     }
 
-    const accountServiceRESTApi = await AccountServiceManager.createRestAPIServer();
-    app.use('/', accountServiceRESTApi);
-
-    const accessTokenServiceRESTApi = await AccessTokenServiceManager.createRestAPIServer();
-    app.use('/', accessTokenServiceRESTApi);
-
-    const taskServiceRESTApi = await TaskServiceManager.createRestAPIServer();
-    app.use('/', taskServiceRESTApi);
+    const restApi = await TaskServiceManager.createRestAPIServer();
+    app.use('/api', restApi);
 
     return app;
   }
@@ -83,12 +75,10 @@ export default class App {
 
   private static getRequestLogger(): express.Handler {
     return expressWinston.logger({
-      transports: [
-        LoggerManager.getWinstonTransport(),
-      ],
+      transports: [LoggerManager.getWinstonTransport()],
       // no pre-build meta
       meta: false,
-      msg: 'www - request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
+      msg: "www - request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers['user-agent']}}",
       // use the default express/morgan request formatting
       // enabling this will override any msg if true
       expressFormat: false,
@@ -101,9 +91,7 @@ export default class App {
 
   private static getErrorLogger(): express.ErrorRequestHandler {
     return expressWinston.errorLogger({
-      transports: [
-        LoggerManager.getWinstonTransport(),
-      ],
+      transports: [LoggerManager.getWinstonTransport()],
     });
   }
 }
