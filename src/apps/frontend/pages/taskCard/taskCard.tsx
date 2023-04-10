@@ -4,22 +4,27 @@ import { Button } from 'baseui/button';
 import { useStyletron } from 'baseui';
 import UpdateModal from './updateModal';
 import DeleteModal from './deleteModal';
-import { ITask } from '../../contexts/models';
-const TaskCard = (task: ITask) => {
-  const [css] = useStyletron();
+const TaskCard = ({ task }) => {
   const [updateIsOpen, setUpdateIsOpen] = React.useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = React.useState(false);
+
+  const [css] = useStyletron();
   const marginStyles = css({
     marginRight: '10px',
   });
-  console.log('inside ', task);
+
+  const isTaskOverDue = new Date(task.dueDate) < new Date();
+
   return (
     <Card
       overrides={{
         Root: { style: { margin: '10px' } },
       }}
     >
-      <StyledBody>{task.name}</StyledBody>
+      <StyledBody>
+        {task.name}
+        {isTaskOverDue && 'Task is Overdue'}
+      </StyledBody>
       <StyledAction>
         <Button className={marginStyles} onClick={() => setUpdateIsOpen(true)}>
           Update Task
