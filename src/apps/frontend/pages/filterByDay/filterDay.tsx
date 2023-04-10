@@ -2,8 +2,16 @@ import React, { useContext } from 'react';
 import { ProjectContext } from '../../contexts/tasks.provider';
 import { useParams } from 'react-router-dom';
 import { ITask } from '../../contexts/models';
+import { useStyletron } from 'baseui';
 import TaskCard from '../taskCard/taskCard';
+import { Heading, HeadingLevel } from 'baseui/heading';
 const filterDay = () => {
+  const [css] = useStyletron();
+  const marginStyles = css({
+    marginLeft: '20px',
+    marginTop: '20px',
+  });
+
   function filterTasksByDays(tasks: ITask[], days: number): ITask[] {
     const today = new Date();
     const nextDay = new Date(today.getTime() + days * 24 * 60 * 60 * 1000);
@@ -24,13 +32,25 @@ const filterDay = () => {
   if (noOfDays) allTasks = filterTasksByDays(allTasks, parseInt(noOfDays));
 
   const allTaskCards = () => {
-    return allTasks.map((currTask) => {
-      return (
-        <div key={currTask.id}>
-          <TaskCard task={currTask} />
-        </div>
-      );
-    });
+    return (
+      <>
+        <HeadingLevel>
+          <Heading className={marginStyles} styleLevel={4}>
+            {noOfDays
+              ? `Tasks Due in ${noOfDays} Day${noOfDays === '1' ? '' : 's'}`
+              : 'All Tasks'}
+          </Heading>
+        </HeadingLevel>
+
+        {allTasks.map((currTask) => {
+          return (
+            <div key={currTask.id}>
+              <TaskCard task={currTask} />
+            </div>
+          );
+        })}
+      </>
+    );
   };
   return <>{allTaskCards()}</>;
 };

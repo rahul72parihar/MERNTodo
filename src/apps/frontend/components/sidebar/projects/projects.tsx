@@ -41,9 +41,15 @@ export default () => {
   return (
     <Accordion
       overrides={{
+        Content: {
+          style: {
+            backgroundColor: '#121212',
+            padding: '0',
+            margin: '10px',
+          },
+        },
         PanelContainer: {
           style: {
-            padding: 'none',
             borderRadius: '10px',
             overflow: 'hidden',
           },

@@ -35,13 +35,20 @@ export default function () {
       <>
         <>{linkButton('days/1', 'Today')}</>
         <>{linkButton('days/7', 'This Week')}</>
-        <>{linkButton('', 'All Taks')}</>
+        <>{linkButton('', 'All Tasks')}</>
       </>
     );
   };
   return (
     <Accordion
       overrides={{
+        Content: {
+          style: {
+            backgroundColor: '#121212',
+            padding: '0',
+            margin: '10px',
+          },
+        },
         PanelContainer: {
           style: {
             borderRadius: '10px',
